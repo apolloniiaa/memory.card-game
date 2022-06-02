@@ -1,6 +1,6 @@
 const section = document.querySelector('section');
 const playerLivesCount = document.querySelector('span');
-let playerLives = 2;
+let playerLives = 5;
 
 playerLivesCount.textContent = playerLives;
 
@@ -28,7 +28,6 @@ const randomize = () => {
   cardData.sort(() => Math.random() - 0.5);
   return cardData;
 };
-
 randomize();
 
 const cardGenerator = () => {
@@ -38,8 +37,6 @@ const cardGenerator = () => {
     const card = document.createElement('div');
     const face = document.createElement('img');
     const back = document.createElement('div');
-    const section = document.querySelector('section');
-
     card.classList = 'card';
     face.classList = 'face';
     back.classList = 'back';
@@ -77,20 +74,21 @@ const checkCards = (e) => {
     } else {
       flippedCards.forEach((card) => {
         card.classList.remove('flipped');
-        setTimeout(() => card.classList.remove('toggleCard'), 1200);
+        setTimeout(() => card.classList.remove('toggleCard'), 1000);
       });
 
       playerLives--;
       playerLivesCount.textContent = playerLives;
+
       if (playerLives === 0) {
         restart(`Sometimes by losing a battle you find a new way to win the war.
         Let's try again! 🦄 `);
       }
     }
   }
-  if (toggleCard.length === 16) {
-    restart(`You've won! That's dynamite.🥷🏻 🎉`);
-  }
+  // if (toggleCard.length === 16) {
+  //   restart(`You've won! That's dynamite!🥷🏻 🎉`);
+  // }
 };
 
 const restart = (text) => {
@@ -109,7 +107,7 @@ const restart = (text) => {
       section.style.pointerEvents = 'all';
     }, 1000);
   });
-  playerLives = 6;
+  playerLives = 5;
   playerLivesCount.textContent = playerLives;
   setTimeout(() => window.alert(text), 100);
 };
