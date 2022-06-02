@@ -8,7 +8,7 @@ html {
   width: 100%;
 }
 body {
-  background-image: linear-gradient(315deg, #a67ef1 0%, #412b85 74%);
+  background-image: linear-gradient(260deg, #a67ef1 0%, #412b85 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,6 +17,8 @@ body {
 }
 h1 {
   padding: 2rem 0 2rem 0;
+  text-align: center;
+  text-transform: uppercase;
 }
 section {
   display: grid;
@@ -28,13 +30,19 @@ section {
 .card {
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 1s;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
+  transition: all 1.15s cubic-bezier(0.175, 0.885, 0.32, 1.05);
+  transition: transform 0.5s;
 }
 .back {
   background-color: #0e0724;
+  position: absolute;
+  backface-visibility: hidden;
+  top: 0;
+}
+
+.face {
+  position: relative;
+  /* transform: rotateY(-180deg); */
 }
 .back,
 .face {
@@ -43,6 +51,7 @@ section {
   object-fit: cover;
   position: absolute;
   backface-visibility: hidden;
+  pointer-events: none;
 }
 .toggleCard {
   transform: rotateY(180deg);
@@ -51,9 +60,8 @@ section {
 @media (max-width: 780px) {
   section {
     display: grid;
-    grid-template-columns: repeat(3, 6rem);
-    grid-template-rows: repeat(5, 6rem);
-    grid-gap: 1rem;
-    perspective: 789px;
+    grid-template-columns: repeat(4, 3rem);
+    grid-template-rows: repeat(6, 4rem);
+    grid-gap: 2rem;
   }
 }

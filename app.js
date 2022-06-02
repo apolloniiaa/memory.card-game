@@ -1,6 +1,6 @@
 const section = document.querySelector('section');
 const playerLivesCount = document.querySelector('span');
-const playerLives = 6;
+let playerLives = 2;
 
 playerLivesCount.textContent = playerLives;
 
@@ -35,63 +35,82 @@ const cardGenerator = () => {
   const cardData = randomize();
 
   cardData.forEach((item) => {
-    const section = document.querySelector('section');
     const card = document.createElement('div');
-    card.classList = 'card';
-
-    // card.setAttribute('id', item.id);
-    // card.setAttribute('name', item.name);
-
     const face = document.createElement('img');
-    face.classList = 'face';
-    face.src = item.imgSrc;
-
     const back = document.createElement('div');
+    const section = document.querySelector('section');
+
+    card.classList = 'card';
+    face.classList = 'face';
     back.classList = 'back';
+
+    face.src = item.imgSrc;
+    card.setAttribute('name', item.name);
 
     section.appendChild(card);
     card.appendChild(face);
     card.appendChild(back);
 
     card.addEventListener('click', (e) => {
-      //   console.log(e);
-      //Run our flip animation
       face.classList.toggle('toggleCard');
       card.classList.toggle('toggleCard');
-      //   checkCards(e);
+      checkCards(e);
     });
   });
 };
 
-// const checkCards = (e) => {
-//   const clickedCard = e.target;
-//   clickedCard.classList.add('flipped');
-//   const flippedCards = document.querySelectorAll('.flipped');
+const checkCards = (e) => {
+  const clickedCard = e.target;
+  clickedCard.classList.add('flipped');
+  const flippedCards = document.querySelectorAll('.flipped');
+  const toggleCard = document.querySelectorAll('.toggleCard');
 
-//   const toggleCard = document.querySelectorAll('.toggleCard');
+  if (flippedCards.length === 2) {
+    if (
+      flippedCards[0].getAttribute('name') ===
+      flippedCards[1].getAttribute('name')
+    ) {
+      flippedCards.forEach((card) => {
+        card.classList.remove('flipped');
+        card.style.pointerEvents = 'none';
+      });
+    } else {
+      flippedCards.forEach((card) => {
+        card.classList.remove('flipped');
+        setTimeout(() => card.classList.remove('toggleCard'), 1200);
+      });
 
-//   if (flippedCards.length === 2) {
-//     if (
-//       flippedCards[0].getAttribute('name') ===
-//       flippedCards[1].getAttribute('name')
-//     ) {
-//       console.log('match');
-//       flippedCards.forEach((card) => {
-//         card.classList.remove('flipped');
-//         // IF THERE'S A MATCH, STOP THE CARDS FROM FLIPPING ANY MORE
-//         card.style.pointerEvents = 'none';
-//       });
-//     } else {
-//       console.log('wrong');
-//       flippedCards.forEach((card) => {
-//         card.classList.remove('flipped');
-//         setTimeout(() => card.classList.remove('toggleCard'), 1200);
-//       });
-//     }
-//   }
-// };
-// const board = () => {
-//   console.log('i will fight you');
-// };
+      playerLives--;
+      playerLivesCount.textContent = playerLives;
+      if (playerLives === 0) {
+        restart(`Sometimes by losing a battle you find a new way to win the war.
+        Let's try again! 🦄 `);
+      }
+    }
+  }
+  if (toggleCard.length === 16) {
+    restart(`You've won! That's dynamite.🥷🏻 🎉`);
+  }
+};
 
+const restart = (text) => {
+  let cardData = randomize();
+  let faces = document.querySelectorAll('.face');
+  let cards = document.querySelectorAll('.card');
+
+  section.style.pointerEvents = 'none';
+
+  cardData.forEach((item, index) => {
+    cards[index].classList.remove('toggleCard');
+    setTimeout(() => {
+      cards[index].style.pointerEvents = 'all';
+      faces[index].src = item.imgSrc;
+      cards[index].setAttribute('name', item.name);
+      section.style.pointerEvents = 'all';
+    }, 1000);
+  });
+  playerLives = 6;
+  playerLivesCount.textContent = playerLives;
+  setTimeout(() => window.alert(text), 100);
+};
 cardGenerator();
