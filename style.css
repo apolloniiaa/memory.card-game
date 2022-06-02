@@ -1,0 +1,59 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  height: 100%;
+  width: 100%;
+}
+body {
+  background-image: linear-gradient(315deg, #a67ef1 0%, #412b85 74%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #f8ceec;
+}
+h1 {
+  padding: 2rem 0 2rem 0;
+}
+section {
+  display: grid;
+  grid-template-columns: repeat(4, 8rem);
+  grid-template-rows: repeat(4, 8rem);
+  grid-gap: 2rem;
+  perspective: 800px;
+}
+.card {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.back {
+  background-color: #0e0724;
+}
+.back,
+.face {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  position: absolute;
+  backface-visibility: hidden;
+}
+.toggleCard {
+  transform: rotateY(180deg);
+}
+
+@media (max-width: 780px) {
+  section {
+    display: grid;
+    grid-template-columns: repeat(3, 6rem);
+    grid-template-rows: repeat(5, 6rem);
+    grid-gap: 1rem;
+    perspective: 789px;
+  }
+}
