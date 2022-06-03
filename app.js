@@ -1,6 +1,6 @@
 const section = document.querySelector('section');
 const playerLivesCount = document.querySelector('span');
-let playerLives = 5;
+let playerLives = 1000;
 
 playerLivesCount.textContent = playerLives;
 
@@ -86,9 +86,9 @@ const checkCards = (e) => {
       }
     }
   }
-  // if (toggleCard.length === 16) {
-  //   restart(`You've won! That's dynamite!🥷🏻 🎉`);
-  // }
+  if (toggleCard.length === 32) {
+    restart(`You've won! That's dynamite!🥷🏻 🎉`);
+  }
 };
 
 const restart = (text) => {

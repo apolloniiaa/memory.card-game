@@ -30,22 +30,29 @@ section {
 
 .card {
   position: relative;
-  transform-style: preserve-3d;
-  transition: all 2s cubic-bezier(0.175, 0.885, 0.32, 1.05);
   box-shadow: hwb(254 3% 86%) 0px 5px 15px;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -webkit-perspective: 300px;
+  -ms-perspective: 300px;
+  -webkit-transform: 300px;
+
+  transition: all 2s cubic-bezier(0.175, 0.885, 0.32, 1.05);
 }
 .back {
-  background-color: #0e0724d4;
-  backface-visibility: hidden;
+  background-color: #0e0724;
 }
-
 .back,
 .face {
   height: 100%;
   width: 100%;
   object-fit: cover;
   position: absolute;
+  backface-visibility: hidden;
   pointer-events: none;
+}
+.face {
+  transform: rotateY(-180deg);
 }
 .toggleCard {
   transform: rotateY(180deg);
